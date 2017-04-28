@@ -17,7 +17,35 @@ Huffman homework
 
 # from AlgoPy import binTree
 # from AlgoPy import heap
+from AlgoPy.heap import *
+from AlgoPy.binTree import *
+import os
 
+
+def toDot(BTree):
+        dot_string = "graph {\n" + 'graph [ordering="out"]\n'
+        BST_q = deque()
+        if BTree:
+            BST_q.append(BTree)
+        while not len(BST_q) == 0:
+            BTree = BST_q.pop()
+            if BTree.left:
+                dot_string += "   \"" + str(BTree.key) + "\" -- \"" + str(BTree.left.key) + "\"\n"
+                BST_q.append(BTree.left)
+            if BTree.right:
+                dot_string += "   \"" + str(BTree.key) + "\" -- \"" + str(BTree.right.key) + "\"\n"
+                BST_q.append(BTree.right)
+        dot_string += "}"
+        return dot_string
+
+def toSVG(B, name):
+    if B:
+        graph = AGraph(toDot(B))
+        layout = graph.layout(prog="dot")
+        draw = graph.draw("{}.svg".format(name))
+        system("display {}.svg".format(name))
+    else:
+        print("Give me a better tree")
 
 
 ################################################################################
@@ -41,52 +69,83 @@ def buildFrequencyList(dataIN): # Working
 
 ################################################################################
 
+# def buildHuffmanTree(inputList):
+#     """
+#     Processes the frequency list into a Huffman tree according to the algorithm.
+#     """
+#     heap = newHeap()
+#     for i in range(len(inputList)):
+#         heapPush(heap, inputList[i])
+#         # puts the inputList in a heap
+#
+#     tree = BinTree(None, None, None)
+#     if len(inputList) == 1: # if there is only one character in the string given
+#         tree.key = heapPop(heap)[1]
+#         return tree
+#
+#     min1 = BinTree(heapPop(heap)[0], None, None)
+#     for i in range(len(inputList) // 2):
+#         min2 = heapPop(heap)
+#         tree.key = min1.key + min2[0]
+#         tree.right = min2
+#         tree.left = min1
+#         min1 = tree
+#
+#     return tree
+
+def _quickSort(L):
+    less = []
+    pivotList = []
+    more = []
+    if (L==[]):
+        return L
+    else:
+        pivot = L[0].key[1]
+        for i in L:
+            if i.key[1] > pivot:
+                more.append(i)
+            elif i.key[1] < pivot:
+                less.append(i)
+            else:
+                pivotList.append(i)
+        less = _quickSort(less)
+        more = _quickSort(more)
+        return more + pivotList + less
+
+def _ListTupletoBinTree(L):
+    l=[]
+    for i in L:
+        T = BinTree(i,None,None)
+        l.append(T)
+    return l
+
+def _buildHuffmanTree(inputList):
+    if(len(inputList)==1):
+        return inputList[0]
+    elif(inputList==[]):
+        return None
+    L=_quickSort(inputList)
+    right = L.pop()
+    left = L.pop()
+    T = BinTree(('.',right.key[1]+left.key[1]),left,right)
+    T.left.key = left.key[0]
+    T.right.key = right.key[0]
+    L.append(T)
+    _buildHuffmanTree(L)
+
 def buildHuffmanTree(inputList):
     """
     Processes the frequency list into a Huffman tree according to the algorithm.
     """
-    heap = newHeap()
-    for i in range(len(inputList)):
-        heapPush(heap, inputList[i])
-        # puts the inputList in a heap
+    inputList = _ListTupletoBinTree(inputList)
+    return _buildHuffmanTree(inputList)
 
-    tree = BinTree(None, None, None)
-    if len(inputList) == 1: # if there is only one character in the string given
-        tree.key = heapPop(heap)[1]
-        return tree
 
-    min1 = BinTree(heapPop(heap)[0], None, None)
-    for i in range(len(inputList) // 2):
-        min2 = heapPop(heap)
-        tree.key = min1.key + min2[0]
-        tree.right = min2
-        tree.left = min1
-        min1 = tree
-
-    return tree
-
-from AlgoPy.heap import *
-from AlgoPy.binTree import *
-
-# tests
-string = "apple pie"
-freq = buildFrequencyList(string)
-print("frequence table:")
+freq = buildFrequencyList("apple pie")
 print(freq)
 tree = buildHuffmanTree(freq)
-print("tree:")
 print(tree)
-print("tree.key")
-print(tree.key)
-print("left")
-print(tree.left)
-print("right")
-print(tree.right)
-print("left left")
-print(tree.left.left)
-print("left right")
-print(tree.left.right)
-print(tree.left.key)
+toSVG(tree, "tree.svg")
 
 ################################################################################
 
