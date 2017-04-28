@@ -20,6 +20,7 @@ Huffman homework
 from AlgoPy.heap import *
 from AlgoPy.binTree import *
 import os
+import pygraphviz
 
 
 def toDot(BTree):
@@ -100,11 +101,12 @@ def _quickSort(L):
     if (L==[]):
         return L
     else:
-        pivot = L[0].key[1]
+        pivot = L[0].key[0]
         for i in L:
-            if i.key[1] > pivot:
+            print(i.key[0])
+            if i.key[0] > pivot:
                 more.append(i)
-            elif i.key[1] < pivot:
+            elif i.key[0] < pivot:
                 less.append(i)
             else:
                 pivotList.append(i)
@@ -127,9 +129,10 @@ def _buildHuffmanTree(inputList):
     L=_quickSort(inputList)
     right = L.pop()
     left = L.pop()
-    T = BinTree(('.',right.key[1]+left.key[1]),left,right)
-    T.left.key = left.key[0]
-    T.right.key = right.key[0]
+    T = BinTree((right.key[0]+left.key[0],'.'),left,right)
+    T.left.key = left.key[1]
+    T.right.key = right.key[1]
+    #toSVG(T, "mytree.svg")
     L.append(T)
     _buildHuffmanTree(L)
 
