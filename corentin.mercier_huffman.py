@@ -51,7 +51,7 @@ def buildHuffmanTree(inputList):
     inputList = _ListTupletoBinTree(inputList)
     return _buildHuffmanTree(inputList,0)
 
-def _quickSort(L):
+def quickSort(L):
     less = []
     pivotList = []
     more = []
@@ -66,8 +66,8 @@ def _quickSort(L):
                 less.append(i)
             else:
                 pivotList.append(i)
-        less = _quickSort(less)
-        more = _quickSort(more)
+        less = quickSort(less)
+        more = quickSort(more)
         return more + pivotList + less
 
 def _ListTupletoBinTree(L):
@@ -82,7 +82,7 @@ def _buildHuffmanTree(L,x):
         return L[0]
     elif(L==[0]):
         return None
-    L=_quickSort(L)
+    L = quickSort(L)
     right = L.pop()
     left = L.pop()
     x+=1
