@@ -19,8 +19,9 @@ Huffman homework
 # from AlgoPy import heap
 from AlgoPy.heap import *
 from AlgoPy.binTree import *
-import os
-import pygraphviz
+from os import *
+from pygraphviz import AGraph
+from collections import deque
 
 
 def toDot(BTree):
@@ -44,7 +45,7 @@ def toSVG(B, name):
         graph = AGraph(toDot(B))
         layout = graph.layout(prog="dot")
         draw = graph.draw("{}.svg".format(name))
-        system("display {}.svg".format(name))
+        #system("display {}.svg".format(name))
     else:
         print("Give me a better tree")
 
@@ -83,7 +84,6 @@ def buildFrequencyList(dataIN): # Working
 #     if len(inputList) == 1: # if there is only one character in the string given
 #         tree.key = heapPop(heap)[1]
 #         return tree
-#
 #     min1 = BinTree(heapPop(heap)[0], None, None)
 #     for i in range(len(inputList) // 2):
 #         min2 = heapPop(heap)
@@ -91,7 +91,6 @@ def buildFrequencyList(dataIN): # Working
 #         tree.right = min2
 #         tree.left = min1
 #         min1 = tree
-#
 #     return tree
 
 def _quickSort(L):
@@ -123,6 +122,7 @@ def _ListTupletoBinTree(L):
 
 def _buildHuffmanTree(inputList):
     if(len(inputList)==1):
+        print(inputList[0])
         return inputList[0]
     elif(inputList==[]):
         return None
@@ -132,9 +132,8 @@ def _buildHuffmanTree(inputList):
     T = BinTree((right.key[0]+left.key[0],'.'),left,right)
     T.left.key = left.key[1]
     T.right.key = right.key[1]
-    #toSVG(T, "mytree.svg")
     L.append(T)
-    _buildHuffmanTree(L)
+    return _buildHuffmanTree(L)
 
 def buildHuffmanTree(inputList):
     """
@@ -143,12 +142,11 @@ def buildHuffmanTree(inputList):
     inputList = _ListTupletoBinTree(inputList)
     return _buildHuffmanTree(inputList)
 
-
-freq = buildFrequencyList("apple pie")
+freq = buildFrequencyList("apple")
 print(freq)
 tree = buildHuffmanTree(freq)
 print(tree)
-toSVG(tree, "tree.svg")
+toSVG(tree, "tree")
 
 ################################################################################
 
