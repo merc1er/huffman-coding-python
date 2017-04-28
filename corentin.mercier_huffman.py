@@ -85,18 +85,18 @@ def _buildHuffmanTree(L,x):
     L = quickSort(L)
     right = L.pop()
     left = L.pop()
-    x+=1
+    x += 1
     T = BinTree((right.key[0]+left.key[0],x),left,right)
     T.left.key = left.key[1]
     T.right.key = right.key[1]
     L.append(T)
     return _buildHuffmanTree(L, x)
 
-freq = buildFrequencyList("apple pie")
-print(freq)
-tree = buildHuffmanTree(freq)
-print(tree)
-toSVG(tree, "tree")
+# freq = buildFrequencyList("apple pie")
+# print(freq)
+# tree = buildHuffmanTree(freq)
+# print(tree)
+# toSVG(tree, "tree")
 
 ################################################################################
 
