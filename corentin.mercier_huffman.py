@@ -93,6 +93,55 @@ def buildFrequencyList(dataIN): # Working
 #         min1 = tree
 #     return tree
 
+# def _quickSort(L):
+#     less = []
+#     pivotList = []
+#     more = []
+#     if (L==[]):
+#         return L
+#     else:
+#         pivot = L[0].key[0]
+#         for i in L:
+#             print(i.key[0])
+#             if i.key[0] > pivot:
+#                 more.append(i)
+#             elif i.key[0] < pivot:
+#                 less.append(i)
+#             else:
+#                 pivotList.append(i)
+#         less = _quickSort(less)
+#         more = _quickSort(more)
+#         return more + pivotList + less
+#
+# def _ListTupletoBinTree(L):
+#     l=[]
+#     for i in L:
+#         T = BinTree(i,None,None)
+#         l.append(T)
+#     return l
+#
+# def _buildHuffmanTree(inputList):
+#     if(len(inputList)==1):
+#         print(inputList[0])
+#         return inputList[0]
+#     elif(inputList==[]):
+#         return None
+#     L=_quickSort(inputList)
+#     right = L.pop()
+#     left = L.pop()
+#     T = BinTree((right.key[0]+left.key[0],'.'),left,right)
+#     T.left.key = left.key[1]
+#     T.right.key = right.key[1]
+#     L.append(T)
+#     return _buildHuffmanTree(L)
+#
+def buildHuffmanTree(inputList):
+    """
+    Processes the frequency list into a Huffman tree according to the algorithm.
+    """
+    inputList = _ListTupletoBinTree(inputList)
+    return _buildHuffmanTree(inputList,0)
+
 def _quickSort(L):
     less = []
     pivotList = []
@@ -102,7 +151,6 @@ def _quickSort(L):
     else:
         pivot = L[0].key[0]
         for i in L:
-            print(i.key[0])
             if i.key[0] > pivot:
                 more.append(i)
             elif i.key[0] < pivot:
@@ -120,29 +168,22 @@ def _ListTupletoBinTree(L):
         l.append(T)
     return l
 
-def _buildHuffmanTree(inputList):
-    if(len(inputList)==1):
-        print(inputList[0])
-        return inputList[0]
-    elif(inputList==[]):
+def _buildHuffmanTree(L,x):
+    if(len(L)<=1):
+        return L[0]
+    elif(L==[0]):
         return None
-    L=_quickSort(inputList)
+    L=_quickSort(L)
     right = L.pop()
     left = L.pop()
-    T = BinTree((right.key[0]+left.key[0],'.'),left,right)
+    x+=1
+    T = BinTree((right.key[0]+left.key[0],x),left,right)
     T.left.key = left.key[1]
     T.right.key = right.key[1]
     L.append(T)
-    return _buildHuffmanTree(L)
+    return _buildHuffmanTree(L, x)
 
-def buildHuffmanTree(inputList):
-    """
-    Processes the frequency list into a Huffman tree according to the algorithm.
-    """
-    inputList = _ListTupletoBinTree(inputList)
-    return _buildHuffmanTree(inputList)
-
-freq = buildFrequencyList("apple")
+freq = buildFrequencyList("apple pie")
 print(freq)
 tree = buildHuffmanTree(freq)
 print(tree)
