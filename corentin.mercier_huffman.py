@@ -43,6 +43,7 @@ def buildFrequencyList(dataIN): # Working
     return table
 
 ################################################################################
+## BUILD THE TREE
 
 def buildHuffmanTree(inputList): # Working
     """
@@ -96,6 +97,7 @@ def _buildHuffmanTree(L,x):
     return _buildHuffmanTree(L, x)
 
 ################################################################################
+## ENCODE DATA USING THE TREE
 
 def encodeData(dataIN, huffmanTree):
     """
@@ -103,10 +105,22 @@ def encodeData(dataIN, huffmanTree):
     """
     pass
 
-def codeDict(tree):
+def codeDict(tree, l = []):
     """
     Returns a list of tuples (letter,corresponding code)
     """
+    if tree == None:
+        return l
+    else:
+        code = ""
+        if tree.left != None:
+            code += "0"
+            codeDict(tree.left, l)
+        elif tree.right != None:
+            code += "1"
+            codeDict(tree.left, l)
+        else:
+            return l
 
 ################################################################################
 
@@ -183,3 +197,5 @@ freq = buildFrequencyList("apple pie")
 tree = buildHuffmanTree(freq)
 print(tree)
 toSVG(tree, "tree")
+code = codeDict(tree)
+print(code)
