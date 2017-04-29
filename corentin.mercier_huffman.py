@@ -120,21 +120,8 @@ def codeDict(tree):
             if tree.left == None and tree.right == None:
               l.append((tree.key, string))
             dfsInfix(tree.right, string + '1')
-    ms = ''
-    dfsInfix(tree, ms)
+    dfsInfix(tree, "")
     return l
-
-def _MappingTable(B):
-  l=[]
-  def dfsPrefix(B, s):
-      if B != None:
-          if B.left == None and B.right == None:
-            l.append((B.key, s))
-          dfsPrefix(B.left, s+'0')
-          dfsPrefix(B.right, s+'1')
-  ms = ''
-  dfsPrefix(B, ms)
-  return l
 
 ################################################################################
 
@@ -201,9 +188,6 @@ def decompress(data, dataAlign, tree, treeAlign):
 ################################################################################
 ## TESTS
 
-#
-#
-#
 # def encodeData(dataIN, huffmanTree):
 #   MT = _MappingTable(huffmanTree)
 #
@@ -220,9 +204,6 @@ tree = buildHuffmanTree(freq)
 # print(tree)
 # toSVG(tree, "tree")
 code = codeDict(tree)
-code2 = _MappingTable(tree)
-print("Gael")
-print(code2)
 print("Corentin")
 print(code)
 
