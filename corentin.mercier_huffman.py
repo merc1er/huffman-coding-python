@@ -48,10 +48,13 @@ def buildHuffmanTree(inputList): # Working
     """
     Processes the frequency list into a Huffman tree according to the algorithm.
     """
-    inputList = _ListTupletoBinTree(inputList)
+    inputList = ListTupletoBinTree(inputList)
     return _buildHuffmanTree(inputList,0)
 
 def quickSort(L):
+    """
+    Reversed quickSort
+    """
     less = []
     pivotList = []
     more = []
@@ -70,9 +73,12 @@ def quickSort(L):
         more = quickSort(more)
         return more + pivotList + less
 
-def _ListTupletoBinTree(L):
+def ListTupletoBinTree(inputList):
+    """
+    Encodes the input string to its binary string representation.
+    """
     l=[]
-    for i in L:
+    for i in inputList:
         T = BinTree(i,None,None)
         l.append(T)
     return l
@@ -92,21 +98,18 @@ def _buildHuffmanTree(L,x):
     L.append(T)
     return _buildHuffmanTree(L, x)
 
-# freq = buildFrequencyList("apple pie")
-# print(freq)
-# tree = buildHuffmanTree(freq)
-# print(tree)
-# toSVG(tree, "tree")
-
 ################################################################################
 
 def encodeData(dataIN, huffmanTree):
     """
     Encodes the input string to its binary string representation.
     """
-
-    # FIXME
     pass
+
+def codeDict(tree):
+    """
+    Returns a list of tuples (letter,corresponding code)
+    """
 
 ################################################################################
 
@@ -174,3 +177,12 @@ def decompress(data, dataAlign, tree, treeAlign):
 
     # FIXME
     pass
+
+################################################################################
+## TESTS
+
+freq = buildFrequencyList("apple pies")
+# print(freq)
+tree = buildHuffmanTree(freq)
+print(tree)
+toSVG(tree, "tree")
