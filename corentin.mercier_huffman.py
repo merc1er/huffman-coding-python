@@ -109,9 +109,7 @@ def codeDict(tree, l = [], code = ""):
     """
     Returns a list of tuples (letter,corresponding code)
     """
-    if tree == None:
-        return l
-    else:
+    if tree != None:
         _tree = tree
         if tree.left != None:
             code += "0"
@@ -121,8 +119,21 @@ def codeDict(tree, l = [], code = ""):
             codeDict(tree.right, l, code)
         else:
             l.append((tree.key, code))
-    code += "1"
-    return codeDict(_tree.right, l, code)
+        code += "1"
+        return codeDict(_tree.right, l, code)
+    return l
+
+def _MappingTable (B):
+  l=[]
+  def dfsPrefix(B, s):
+      if B != None:
+          if B.left == None and B.right == None:
+            l.append((B.key[0], s))
+          dfsPrefix(B.left, s+'0')
+          dfsPrefix(B.right, s+'1')
+  ms = ''
+  dfsPrefix(B, ms)
+  return l
 
 ################################################################################
 
@@ -189,19 +200,6 @@ def decompress(data, dataAlign, tree, treeAlign):
 ################################################################################
 ## TESTS
 
-# def _MappingTable (B):
-#   l=[]
-#   def dfsPrefix(B, s):
-#
-#       if B != None:
-#           if B.left == None and B.left == None:
-#             l.append((B.key[0], s))
-#
-#           dfsPrefix(B.left, s+'0')
-#           dfsPrefix(B.right, s+'0')
-#   ms = ''
-#   dfsPrefix(B, ms)
-#   return l
 #
 #
 #
@@ -220,5 +218,9 @@ freq = buildFrequencyList("apple pie")
 tree = buildHuffmanTree(freq)
 # print(tree)
 # toSVG(tree, "tree")
-code = encodeData("apple pie", tree)
+code = codeDict(tree)
+code2 = _MappingTable(tree)
+print("Gael")
+print(code2)
+print("Corentin")
 print(code)
