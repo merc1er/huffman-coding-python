@@ -123,6 +123,16 @@ def codeDict(tree, l = [], code = ""):
         return codeDict(_tree.right, l, code)
     return l
 
+def dfsInfix(B):
+    '''
+    Depth-first traversal
+    Prints keys in inorder
+    '''
+    if B != None:
+        dfsInfix(B.left)
+        print(B.key, end=' ')
+        dfsInfix(B.right)
+
 def _MappingTable (B):
   l=[]
   def dfsPrefix(B, s):
