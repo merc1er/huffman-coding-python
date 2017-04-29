@@ -99,7 +99,7 @@ def _buildHuffmanTree(L,x):
 ################################################################################
 ## ENCODE DATA USING THE TREE
 
-def encodeData(dataIN, huffmanTree):
+def encodeData(dataIN, huffmanTree): # Not working
     """
     Encodes the input string to its binary string representation.
     """
@@ -121,7 +121,8 @@ def codeDict(tree, l = [], code = ""):
             codeDict(tree.right, l, code)
         else:
             l.append((tree.key, code))
-    return codeDict(_tree.right, l)
+    code += "1"
+    return codeDict(_tree.right, l, code)
 
 ################################################################################
 
@@ -129,7 +130,6 @@ def encodeTree(huffmanTree):
     """
     Encodes a huffman tree to its binary representation
     """
-    # FIXME
     pass
 
 
@@ -137,8 +137,6 @@ def toBinary(dataIN):
     """
     Compresses a string containing binary code to its real binary value.
     """
-
-    # FIXME
     pass
 
 
@@ -191,10 +189,36 @@ def decompress(data, dataAlign, tree, treeAlign):
 ################################################################################
 ## TESTS
 
+# def _MappingTable (B):
+#   l=[]
+#   def dfsPrefix(B, s):
+#
+#       if B != None:
+#           if B.left == None and B.left == None:
+#             l.append((B.key[0], s))
+#
+#           dfsPrefix(B.left, s+'0')
+#           dfsPrefix(B.right, s+'0')
+#   ms = ''
+#   dfsPrefix(B, ms)
+#   return l
+#
+#
+#
+# def encodeData(dataIN, huffmanTree):
+#   MT = _MappingTable(huffmanTree)
+#
+#   MessInBinHuff = ""
+#   for i in dataIN:
+#     for n in range (len(MT)):
+#       if i == MT[n][0]:
+#         MessInBinHuff + MT[n][1]
+#   return MessInBinHuff
+
 freq = buildFrequencyList("apple pie")
 # print(freq)
 tree = buildHuffmanTree(freq)
-print(tree)
+# print(tree)
 # toSVG(tree, "tree")
-code = codeDict(tree)
+code = encodeData("apple pie", tree)
 print(code)
