@@ -47,9 +47,13 @@ def buildFrequencyList(dataIN): # Working
 def buildHuffmanTree(inputList): # Working
     """
     Processes the frequency list into a Huffman tree according to the algorithm.
+    This is the hat function
     """
-    inputList = ListTupletoBinTree(inputList)
-    return _buildHuffmanTree(inputList,0)
+    l=[]
+    for i in inputList:
+        T = BinTree(i,None,None)
+        l.append(T)
+    return _buildHuffmanTree(l,0)
 
 def quickSort(L):
     """
@@ -73,17 +77,10 @@ def quickSort(L):
         more = quickSort(more)
         return more + pivotList + less
 
-def ListTupletoBinTree(inputList):
-    """
-    Encodes the input string to its binary string representation.
-    """
-    l=[]
-    for i in inputList:
-        T = BinTree(i,None,None)
-        l.append(T)
-    return l
-
 def _buildHuffmanTree(L,x):
+    """
+    Processes the frequency list into a Huffman tree according to the algorithm.
+    """
     if(len(L)<=1):
         return L[0]
     elif(L==[0]):
@@ -181,7 +178,7 @@ def decompress(data, dataAlign, tree, treeAlign):
 ################################################################################
 ## TESTS
 
-freq = buildFrequencyList("apple pies")
+freq = buildFrequencyList("apple pie")
 # print(freq)
 tree = buildHuffmanTree(freq)
 print(tree)
