@@ -105,22 +105,23 @@ def encodeData(dataIN, huffmanTree):
     """
     pass
 
-def codeDict(tree, l = []):
+def codeDict(tree, l = [], code = ""):
     """
     Returns a list of tuples (letter,corresponding code)
     """
     if tree == None:
         return l
     else:
-        code = ""
+        _tree = tree
         if tree.left != None:
             code += "0"
-            codeDict(tree.left, l)
+            codeDict(tree.left, l, code)
         elif tree.right != None:
             code += "1"
-            codeDict(tree.left, l)
+            codeDict(tree.right, l, code)
         else:
-            return l
+            l.append((tree.key, code))
+    return codeDict(_tree.right, l)
 
 ################################################################################
 
@@ -128,7 +129,6 @@ def encodeTree(huffmanTree):
     """
     Encodes a huffman tree to its binary representation
     """
-
     # FIXME
     pass
 
@@ -185,7 +185,6 @@ def decompress(data, dataAlign, tree, treeAlign):
     """
     The whole decompression process.
     """
-
     # FIXME
     pass
 
@@ -196,6 +195,6 @@ freq = buildFrequencyList("apple pie")
 # print(freq)
 tree = buildHuffmanTree(freq)
 print(tree)
-toSVG(tree, "tree")
+# toSVG(tree, "tree")
 code = codeDict(tree)
 print(code)
