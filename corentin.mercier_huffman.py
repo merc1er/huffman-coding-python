@@ -20,7 +20,7 @@ Huffman homework
 from AlgoPy.heap import *
 from AlgoPy.binTree import *
 
-from prettytree import *
+from AlgoPy.prettytree import *
 
 
 ################################################################################
@@ -44,7 +44,7 @@ def buildFrequencyList(dataIN): # Working
 
 ################################################################################
 
-def buildHuffmanTree(inputList):
+def buildHuffmanTree(inputList): # Working
     """
     Processes the frequency list into a Huffman tree according to the algorithm.
     """
@@ -108,6 +108,7 @@ def encodeData(dataIN, huffmanTree):
     # FIXME
     pass
 
+################################################################################
 
 def encodeTree(huffmanTree):
     """
