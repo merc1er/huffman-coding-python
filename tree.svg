@@ -9,11 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 256)">
 <title>%3</title>
 <polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-256 346,-256 346,4 -4,4"/>
-<!-- . -->
 <g id="node1" class="node">
-<title>.</title>
+<title></title>
 <ellipse fill="none" stroke="#000000" cx="135" cy="-234" rx="27" ry="18"/>
-<text text-anchor="middle" x="135" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">.</text>
 </g>
 <!-- 4 -->
 <g id="node2" class="node">
@@ -21,9 +19,9 @@
 <ellipse fill="none" stroke="#000000" cx="99" cy="-162" rx="27" ry="18"/>
 <text text-anchor="middle" x="99" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000">4</text>
 </g>
-<!-- .&#45;&#45;4 -->
+<!-- &#45;&#45;4 -->
 <g id="edge1" class="edge">
-<title>.&#45;&#45;4</title>
+<title>&#45;&#45;4</title>
 <path fill="none" stroke="#000000" d="M126.29,-216.57C120.63,-205.25 113.28,-190.56 107.63,-179.27"/>
 </g>
 <!-- 3 -->
@@ -32,9 +30,9 @@
 <ellipse fill="none" stroke="#000000" cx="171" cy="-162" rx="27" ry="18"/>
 <text text-anchor="middle" x="171" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000">3</text>
 </g>
-<!-- .&#45;&#45;3 -->
+<!-- &#45;&#45;3 -->
 <g id="edge2" class="edge">
-<title>.&#45;&#45;3</title>
+<title>&#45;&#45;3</title>
 <path fill="none" stroke="#000000" d="M143.71,-216.57C149.37,-205.25 156.72,-190.56 162.37,-179.27"/>
 </g>
 <!-- p -->

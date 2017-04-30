@@ -54,7 +54,9 @@ def buildHuffmanTree(inputList): # Working
     for i in inputList:
         T = BinTree(i,None,None)
         l.append(T)
-    return _buildHuffmanTree(l,0)
+    tree = _buildHuffmanTree(l,0)
+    tree.key = ""
+    return tree
 
 def quickSort(L):
     """
@@ -135,28 +137,14 @@ def encodeTree(huffmanTree): # Working
     """
     Encodes a huffman tree to its binary representation
     """
-    l = preorder(huffmanTree)
+    l = codeDict(huffmanTree)
     s = ""
-    print(l)
     for item in l:
-        if item == 0:
+        if item[0] == 0:
             s += "0"
         else:
-            s = s + "1" + letterToBin(item)
+            s = s + "1" + letterToBin(item[0])
     return s
-
-def preorder(tree, l = []):
-    '''
-    Depth-first traversal
-    Prints keys in preorder
-    '''
-    if tree != None:
-        if tree.left == None and tree.right == None:
-            l.append(tree.key)
-        l.append("0")
-        preorder(tree.left, l)
-        preorder(tree.right, l)
-    return l
 
 def letterToBin(letter):
     """
@@ -167,7 +155,8 @@ def letterToBin(letter):
         return "0"
     string = ""
     while i != 0:
-        string += str(i % 2)
+        #string = str(i % 2) + string
+        string = str(i % 2)
         i = i // 2
     return reverseString(string)
 
@@ -183,10 +172,7 @@ def toBinary(dataIN):
     """
     Compresses a string containing binary code to its real binary value.
     """
-    binary = ""
-    for letter in dataIN:
-        pass
-    return ' '.join(format(ord(x), 'b') for x in dataIN)
+    pass
 
 
 def compress(dataIn):
@@ -233,13 +219,31 @@ def decompress(data, dataAlign, tree, treeAlign):
 ################################################################################
 ## TESTS
 
-freq = buildFrequencyList("apple pie")
-# print(freq)
+
+print("#####################")
+print("")
+string = input(" Please enter a string: ")
+print("this is your string: " + bcolors.WARNING + string)
+
+print(bcolors.RESET)
+freq = buildFrequencyList(string)
+print("frequency list:")
+print(freq)
+print("")
+
 tree = buildHuffmanTree(freq)
-# print(tree)
-# toSVG(tree, "tree")
+print(tree)
+toSVG(tree, "tree")
+
+print()
+print("This is the codeDict")
 code = codeDict(tree)
-#print(code)
-#
+print(code)
+
+print()
+print("EncodeData returns:")
 print(encodeData("apple pie", tree))
+
+print()
+print("encodeTree returns:")
 print(encodeTree(tree))
