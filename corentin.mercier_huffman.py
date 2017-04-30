@@ -133,16 +133,14 @@ def codeDict(tree):
 
 ################################################################################
 
-def encodeTree(huffmanTree): # Fixing
+def encodeTree(huffmanTree): # Working
     """
     Encodes a huffman tree to its binary representation
     """
     dic = codeDict(huffmanTree)
     code = ""
     for item in dic:
-        print(item[0])
-        print(letterToBin(item[0]))
-        code = code + remove1(item[1]) + "1" + letterToBin(item[0]) + " "
+        code = code + remove1(item[1]) + "1" + letterToBin(item[0])
     return code
 
 def remove1(string):
@@ -152,8 +150,10 @@ def remove1(string):
     string = str(string)
     ret = ""
     for x in string:
-        if x == "0":
-            ret += x
+        if x == "1":
+            ret = ""
+        else:
+            ret += "0"
     return ret
 
 def letterToBin(letter):
@@ -168,7 +168,7 @@ def letterToBin(letter):
         string = str(i % 2) + string
         #string = str(i % 2)
         i = i // 2
-    return string + "0"
+    return "0" + string
 
 ################################################################################
 
@@ -254,4 +254,4 @@ print(encodeTree(tree))
 
 print()
 print("expected result:")
-print("00101110100 10110001001 01100001010 1100011101100101")
+print("0010111010010110001001011000010101100011101100101")
