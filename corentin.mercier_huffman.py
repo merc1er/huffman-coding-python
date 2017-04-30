@@ -131,11 +131,18 @@ def codeDict(tree):
 
 ################################################################################
 
-def encodeTree(huffmanTree):
+def encodeTree(huffmanTree): # Working
     """
     Encodes a huffman tree to its binary representation
     """
-    pass
+    l = preorder(huffmanTree)
+    s = ""
+    for item in l:
+        if item == 0:
+            s += "0"
+        else:
+            s = s + "1" + letterToBin(item)
+    return s
 
 def predorder(tree, l = []):
     '''
@@ -144,11 +151,32 @@ def predorder(tree, l = []):
     '''
     if tree != None:
         if tree.left == None and tree.right == None:
-            l.append(bin(tree.key))
+            l.append(tree.key)
+        l.append("0")
         predorder(tree.left, l)
         predorder(tree.right, l)
     return l
 
+def letterToBin(letter):
+    """
+    Converts a letter into its binary representation
+    """
+    i = ord(letter)
+    if i == 0:
+        return "0"
+    string = ""
+    while i != 0:
+        string += str(i % 2)
+        i = i // 2
+    return reverseString(string)
+
+def reverseString(string):
+    rvsd = ""
+    for i in range(len(string) - 1, -1, -1):
+        rvsd += string[i]
+    return rvsd
+
+################################################################################
 
 def toBinary(dataIN):
     """
