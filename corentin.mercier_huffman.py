@@ -145,7 +145,7 @@ def encodeTree(huffmanTree): # Working
 
 def remove1(string):
     """
-    Removes all the 1s from a given string
+    Removes all the 1s from a given string, but not just that ;)
     """
     string = str(string)
     ret = ""
