@@ -137,6 +137,7 @@ def encodeTree(huffmanTree): # Working
     """
     l = preorder(huffmanTree)
     s = ""
+    print(l)
     for item in l:
         if item == 0:
             s += "0"
@@ -144,7 +145,7 @@ def encodeTree(huffmanTree): # Working
             s = s + "1" + letterToBin(item)
     return s
 
-def predorder(tree, l = []):
+def preorder(tree, l = []):
     '''
     Depth-first traversal
     Prints keys in preorder
@@ -153,8 +154,8 @@ def predorder(tree, l = []):
         if tree.left == None and tree.right == None:
             l.append(tree.key)
         l.append("0")
-        predorder(tree.left, l)
-        predorder(tree.right, l)
+        preorder(tree.left, l)
+        preorder(tree.right, l)
     return l
 
 def letterToBin(letter):
@@ -241,4 +242,4 @@ code = codeDict(tree)
 #print(code)
 #
 print(encodeData("apple pie", tree))
-print(predorder(tree))
+print(encodeTree(tree))
