@@ -133,18 +133,28 @@ def codeDict(tree):
 
 ################################################################################
 
-def encodeTree(huffmanTree): # Working
+def encodeTree(huffmanTree): # Fixing
     """
     Encodes a huffman tree to its binary representation
     """
-    l = codeDict(huffmanTree)
-    s = ""
-    for item in l:
-        if item[0] == 0:
-            s += "0"
-        else:
-            s = s + "1" + letterToBin(item[0])
-    return s
+    dic = codeDict(huffmanTree)
+    code = ""
+    for item in dic:
+        print(item[0])
+        print(letterToBin(item[0]))
+        code = code + remove1(item[1]) + "1" + letterToBin(item[0]) + " "
+    return code
+
+def remove1(string):
+    """
+    Removes all the 1s from a given string
+    """
+    string = str(string)
+    ret = ""
+    for x in string:
+        if x == "0":
+            ret += x
+    return ret
 
 def letterToBin(letter):
     """
@@ -155,16 +165,10 @@ def letterToBin(letter):
         return "0"
     string = ""
     while i != 0:
-        #string = str(i % 2) + string
-        string = str(i % 2)
+        string = str(i % 2) + string
+        #string = str(i % 2)
         i = i // 2
-    return reverseString(string)
-
-def reverseString(string):
-    rvsd = ""
-    for i in range(len(string) - 1, -1, -1):
-        rvsd += string[i]
-    return rvsd
+    return string + "0"
 
 ################################################################################
 
@@ -242,8 +246,12 @@ print(code)
 
 print()
 print("EncodeData returns:")
-print(encodeData("apple pie", tree))
+print(encodeData(string, tree))
 
 print()
 print("encodeTree returns:")
 print(encodeTree(tree))
+
+print()
+print("expected result:")
+print("00101110100 10110001001 01100001010 1100011101100101")
