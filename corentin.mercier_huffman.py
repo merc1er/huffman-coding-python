@@ -137,6 +137,18 @@ def encodeTree(huffmanTree):
     """
     pass
 
+def predorder(tree, l = []):
+    '''
+    Depth-first traversal
+    Prints keys in preorder
+    '''
+    if tree != None:
+        if tree.left == None and tree.right == None:
+            l.append(bin(tree.key))
+        predorder(tree.left, l)
+        predorder(tree.right, l)
+    return l
+
 
 def toBinary(dataIN):
     """
@@ -199,5 +211,6 @@ tree = buildHuffmanTree(freq)
 # toSVG(tree, "tree")
 code = codeDict(tree)
 #print(code)
-#print(encodeData("apple pie", tree))
-print(toBinary("apple pie"))
+#
+print(encodeData("apple pie", tree))
+print(predorder(tree))
