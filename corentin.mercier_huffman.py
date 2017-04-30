@@ -166,18 +166,41 @@ def letterToBin(letter):
     string = ""
     while i != 0:
         string = str(i % 2) + string
-        #string = str(i % 2)
         i = i // 2
     return "0" + string
 
 ################################################################################
 
-def toBinary(dataIN):
+def toBinary(dataIN): # Working
     """
     Compresses a string containing binary code to its real binary value.
     """
-    pass
+    s = ""
+    count = 0
+    i = 0
+    length = len(dataIN)
+    while  count  < length:
+    	mult = 1
+    	number = 0
+    	if count + 7 < length:
+    		i = count + 7
+    		while i>=count:
+    			number = number + int(dataIN[i])*mult
+    			i = i - 1
+    			mult = mult * 2
+    	else:
+    		i = length - 1
+    		while i >= count:
+    			number = number + int(dataIN[i])*mult
+    			i = i - 1
+    			mult = mult * 2
+    	s = s + chr(number)
+    	count = count + 8
+    return (s, count - length)
 
+print(toBinary("01011010010000001010010011000110111"))
+
+################################################################################
 
 def compress(dataIn):
     """
@@ -251,7 +274,3 @@ print(encodeData(string, tree))
 print()
 print("encodeTree returns:")
 print(encodeTree(tree))
-
-print()
-print("expected result:")
-print("0010111010010110001001011000010101100011101100101")
