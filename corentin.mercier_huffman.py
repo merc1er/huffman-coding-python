@@ -99,7 +99,7 @@ def _buildHuffmanTree(L,x):
 ################################################################################
 ## ENCODE DATA USING THE TREE
 
-def encodeData(dataIN, huffmanTree):
+def encodeData(dataIN, huffmanTree): # Working
     """
     Encodes the input string to its binary string representation.
     """
@@ -142,7 +142,10 @@ def toBinary(dataIN):
     """
     Compresses a string containing binary code to its real binary value.
     """
-    pass
+    binary = ""
+    for letter in dataIN:
+        pass
+    return ' '.join(format(ord(x), 'b') for x in dataIN)
 
 
 def compress(dataIn):
@@ -159,7 +162,6 @@ def decodeData(dataIN, huffmanTree):
     """
     Decode a string using the corresponding huffman tree into something more readable.
     """
-
     # FIXME
     pass
 
@@ -168,7 +170,6 @@ def decodeTree(dataIN):
     """
     Decodes a huffman tree from its binary representation
     """
-
     # FIXME
     pass
 
@@ -177,7 +178,6 @@ def fromBinary(dataIN, align):
     """
     Retrieve a string containing binary code from its real binary value (inverse of :func:`toBinary`).
     """
-
     # FIXME
     pass
 
@@ -198,5 +198,6 @@ tree = buildHuffmanTree(freq)
 # print(tree)
 # toSVG(tree, "tree")
 code = codeDict(tree)
-print(code)
-print(encodeData("apple pie", tree))
+#print(code)
+#print(encodeData("apple pie", tree))
+print(toBinary("apple pie"))
