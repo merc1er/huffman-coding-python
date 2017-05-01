@@ -254,7 +254,7 @@ def decodeTree(dataIN): # Working
                 T = binTree.BinTree((_byteToChar(oct), 1), None, None)
             return T
     T = _decodeTree(dataIN, binTree.BinTree(None, None, None), lc)
-    return T
+    return beautify(T)
 
 def _byteToChar(byte):
     """
@@ -264,6 +264,18 @@ def _byteToChar(byte):
     for i in range(len(byte)):
         byteInt += (2**(len(byte)-1-i))*(ord(byte[i])-48)
     return(chr(byteInt))
+
+def beautify(tree):
+    '''
+    Depth-first traversal
+    Prints keys in inorder
+    '''
+    if tree != None:
+        beautify(tree.left)
+        if tree.left == None and tree.right == None:
+            tree.key = tree.key[0]
+        beautify(tree.right)
+    return tree
 
 ################################################################################
 
@@ -284,7 +296,7 @@ def decompress(data, dataAlign, tree, treeAlign):
     """
     The whole decompression process.
     """
-
+    pass
 
 ################################################################################
 ## TESTS
@@ -343,8 +355,3 @@ print(bcolors.RESET)
 print("decompress : ")
 final = decompress('Z@¤Æ\x07', 5, '.\x96%\x85c²\x01', 7)
 print(final)
-
-"""
-0010111010010110001001011000010101100011101100101
-0010111010010110001001011000010101100011101100101
-"""
