@@ -238,6 +238,7 @@ def decodeTree(dataIN):
     # FIXME
     pass
 
+################################################################################
 
 def fromBinary(dataIN, align):
     """
