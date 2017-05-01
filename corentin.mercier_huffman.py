@@ -185,20 +185,18 @@ def toBinary(dataIN): # Working
     	if count + 7 < length:
     		i = count + 7
     		while i>=count:
-    			number = number + int(dataIN[i])*mult
+    			number = number + int(dataIN[i]) * mult
     			i = i - 1
     			mult = mult * 2
     	else:
     		i = length - 1
     		while i >= count:
-    			number = number + int(dataIN[i])*mult
+    			number = number + int(dataIN[i]) * mult
     			i = i - 1
     			mult = mult * 2
     	s = s + chr(number)
     	count = count + 8
     return (s, count - length)
-
-print(toBinary("01011010010000001010010011000110111"))
 
 ################################################################################
 
@@ -206,7 +204,11 @@ def compress(dataIn):
     """
     The main function that makes the whole compression process.
     """
-    pass
+    freq = buildFrequencyList(dataIn)
+    tree = buildHuffmanTree(freq)
+    encodedData = encodeData(string, tree)
+    encodedTree = encodeTree(tree)
+    return (toBinary(encodedData), toBinary(encodedTree))
 
 
 ################################################################################
@@ -274,3 +276,9 @@ print(encodeData(string, tree))
 print()
 print("encodeTree returns:")
 print(encodeTree(tree))
+
+print()
+print("Compress returns:" + bcolors.WARNING)
+print(compress(string))
+
+print(bcolors.RESET)
