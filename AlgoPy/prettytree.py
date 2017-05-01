@@ -38,17 +38,3 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     RESET = '\033[0m'
-
-
-# def letterToBin(letter):
-#     """
-#     Converts a letter into its binary representation
-#     """
-#     i = ord(letter)
-#     if i == 0:
-#         return "0"
-#     string = ""
-#     while i != 0:
-#         string = str(i % 2) + string
-#         i = i // 2
-#     return "0" + string
