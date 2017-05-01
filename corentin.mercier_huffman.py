@@ -214,13 +214,22 @@ def compress(dataIn):
 ################################################################################
 ## DECOMPRESSION
 
-def decodeData(dataIN, huffmanTree):
+def decodeData(dataIN, huffmanTree): # Working
     """
     Decode a string using the corresponding huffman tree into something more readable.
     """
-    # FIXME
-    pass
+    code = codeDict(huffmanTree)
+    part = ""
+    ret = ""
+    for thing in dataIN:
+        part += thing
+        for item in code:
+            if part == item[1]:
+                ret += item[0]
+                part = ""
+    return ret
 
+################################################################################
 
 def decodeTree(dataIN):
     """
@@ -261,7 +270,6 @@ print(freq)
 print("")
 
 tree = buildHuffmanTree(freq)
-print(tree)
 toSVG(tree, "tree")
 
 print()
@@ -271,7 +279,8 @@ print(code)
 
 print()
 print("EncodeData returns:")
-print(encodeData(string, tree))
+encodedData = encodeData(string, tree)
+print(encodedData)
 
 print()
 print("encodeTree returns:")
@@ -282,3 +291,6 @@ print("Compress returns:" + bcolors.WARNING)
 print(compress(string))
 
 print(bcolors.RESET)
+print("decodeData returns:")
+decoded = decodeData(encodedData, tree)
+print(decoded)
