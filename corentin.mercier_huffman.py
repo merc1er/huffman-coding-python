@@ -279,16 +279,35 @@ def beautify(tree):
 
 ################################################################################
 
-def fromBinary(dataIN, align): # Working
-    """
-    Retrieve a string containing binary code from its real binary value
-    (inverse of :func:`toBinary`).
-    """
-    ret = ""
-    for i in range(len(dataIN)):
-        _bin = letterToBin(dataIN[i])
-        ret += _bin
-    return ret
+# def fromBinary(dataIN, align): # Working
+#     """
+#     Retrieve a string containing binary code from its real binary value
+#     (inverse of :func:`toBinary`).
+#     """
+#     ret = ""
+#     for i in range(len(dataIN)):
+#         _bin = letterToBin(dataIN[i])
+#         ret += _bin
+#     return ret
+
+def fromBinary (dataIN, align):
+    bin = ""
+    for i in range (len(dataIN)-1):
+        bin += _CharToBin(dataIN[i])
+    lastOct =  _CharToBin(dataIN[len(dataIN)-1])
+    for i in range (align , len(lastOct)):
+        bin += lastOct[i]
+    return bin
+
+def _CharToBin(c):
+    Cint = ord(c)
+    bin = ""
+    while Cint != 0:
+        bin =  str(Cint%2) + bin
+        Cint = Cint//2
+    while len(bin) < 8:
+        bin = '0' + bin
+    return bin
 
 ################################################################################
 
@@ -296,11 +315,17 @@ def decompress(data, dataAlign, tree, treeAlign):
     """
     The whole decompression process.
     """
-    pass
+    tree = fromBinary(tree, treeAlign)
+    code = fromBinary(data, dataAlign)
+    print(code)
+    print(tree)
+    newtree = decodeTree(tree)
+    toSVG(newtree, "test")
+    final = decodeData(code, newtree)
+    return final
 
 ################################################################################
 ## TESTS
-
 
 print("#####################")
 print("")
