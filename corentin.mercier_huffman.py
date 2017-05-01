@@ -243,15 +243,12 @@ def decodeTree(dataIN):
 
 ################################################################################
 
-def fromBinary(dataIN, align):
+def fromBinary(dataIN, align): # Working
     """
     Retrieve a string containing binary code from its real binary value (inverse of :func:`toBinary`).
     """
     ret = ""
     for i in range(len(dataIN)):
-        # if i == len(dataIN) - 1:
-        #     pass
-        # else:
         _bin = letterToBin(dataIN[i])
         ret += _bin
     return ret
