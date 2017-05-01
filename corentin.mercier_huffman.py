@@ -17,6 +17,7 @@ Huffman homework
 
 # from AlgoPy import binTree
 # from AlgoPy import heap
+
 from AlgoPy.heap import *
 from AlgoPy.binTree import *
 
@@ -167,7 +168,9 @@ def letterToBin(letter):
     while i != 0:
         string = str(i % 2) + string
         i = i // 2
-    return "0" + string
+    if len(string) == 7:
+        string = "0" + string
+    return string
 
 ################################################################################
 
@@ -244,15 +247,19 @@ def fromBinary(dataIN, align):
     """
     Retrieve a string containing binary code from its real binary value (inverse of :func:`toBinary`).
     """
-    # FIXME
-    pass
-
+    ret = ""
+    for i in range(len(dataIN)):
+        # if i == len(dataIN) - 1:
+        #     pass
+        # else:
+        _bin = letterToBin(dataIN[i])
+        ret += _bin
+    return ret
 
 def decompress(data, dataAlign, tree, treeAlign):
     """
     The whole decompression process.
     """
-    # FIXME
     pass
 
 ################################################################################
@@ -289,9 +296,20 @@ print(encodeTree(tree))
 
 print()
 print("Compress returns:" + bcolors.WARNING)
-print(compress(string))
+compressed = compress(string)
+print(compressed)
 
 print(bcolors.RESET)
 print("decodeData returns:")
 decoded = decodeData(encodedData, tree)
 print(decoded)
+
+print()
+print("fromBinary returns" + bcolors.WARNING)
+fromb = fromBinary(compressed[0][0], compressed[0][1])
+print(fromb)
+
+"""
+0010111010010110001001011000010101100011101100101
+0010111010010110001001011000010101100011101100101
+"""
