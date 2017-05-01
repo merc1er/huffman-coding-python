@@ -15,11 +15,8 @@ Huffman homework
 # See the complete specifications online.
 
 
-# from AlgoPy import binTree
-# from AlgoPy import heap
-
-from AlgoPy.heap import *
-from AlgoPy.binTree import *
+from AlgoPy import binTree
+from AlgoPy import heap
 
 from AlgoPy.prettytree import *
 
@@ -53,7 +50,7 @@ def buildHuffmanTree(inputList): # Working
     """
     l=[]
     for i in inputList:
-        T = BinTree(i,None,None)
+        T = binTree.BinTree(i,None,None)
         l.append(T)
     tree = _buildHuffmanTree(l,0)
     tree.key = ""
@@ -93,7 +90,7 @@ def _buildHuffmanTree(L,x):
     right = L.pop()
     left = L.pop()
     x += 1
-    T = BinTree((right.key[0]+left.key[0],x),left,right)
+    T = binTree.BinTree((right.key[0]+left.key[0],x),left,right)
     T.left.key = left.key[1]
     T.right.key = right.key[1]
     L.append(T)
@@ -234,18 +231,46 @@ def decodeData(dataIN, huffmanTree): # Working
 
 ################################################################################
 
-def decodeTree(dataIN):
+def decodeTree(dataIN): # Working
     """
     Decodes a huffman tree from its binary representation
     """
-    # FIXME
-    pass
+    lc = []
+    lc.append(0)
+    def _decodeTree (data, T, c):
+        if c[0] < len(data):
+            if data[c[0]] == '0':
+                T = binTree.BinTree(c[0], None, None)
+                c[0] += 1
+                T.left = _decodeTree(data, T.left, c)
+                T.right = _decodeTree(data, T.right, c)
+            else:
+                c[0] += 1
+                c2 = c[0]
+                oct = ""
+                for i in range (c2, c2+8):
+                    oct += data[c[0]]
+                    c[0] += 1
+                T = binTree.BinTree((_byteToChar(oct), 1), None, None)
+            return T
+    T = _decodeTree(dataIN, binTree.BinTree(None, None, None), lc)
+    return T
+
+def _byteToChar(byte):
+    """
+    Converts a byte into a character
+    """
+    byteInt = 0
+    for i in range(len(byte)):
+        byteInt += (2**(len(byte)-1-i))*(ord(byte[i])-48)
+    return(chr(byteInt))
 
 ################################################################################
 
 def fromBinary(dataIN, align): # Working
     """
-    Retrieve a string containing binary code from its real binary value (inverse of :func:`toBinary`).
+    Retrieve a string containing binary code from its real binary value
+    (inverse of :func:`toBinary`).
     """
     ret = ""
     for i in range(len(dataIN)):
@@ -253,11 +278,13 @@ def fromBinary(dataIN, align): # Working
         ret += _bin
     return ret
 
+################################################################################
+
 def decompress(data, dataAlign, tree, treeAlign):
     """
     The whole decompression process.
     """
-    pass
+
 
 ################################################################################
 ## TESTS
@@ -305,6 +332,17 @@ print()
 print("fromBinary returns" + bcolors.WARNING)
 fromb = fromBinary(compressed[0][0], compressed[0][1])
 print(fromb)
+
+print(bcolors.RESET)
+print("decodeTree returns" + bcolors.WARNING)
+dect = decodeTree('0010111010010110001001011000010101100011101100101')
+print(dect)
+toSVG(dect, "decoded")
+
+print(bcolors.RESET)
+print("decompress : ")
+final = decompress('Z@¤Æ\x07', 5, '.\x96%\x85c²\x01', 7)
+print(final)
 
 """
 0010111010010110001001011000010101100011101100101
