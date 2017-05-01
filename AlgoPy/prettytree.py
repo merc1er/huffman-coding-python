@@ -23,7 +23,6 @@ def toSVG(B, name):
         graph = AGraph(toDot(B))
         layout = graph.layout(prog="dot")
         draw = graph.draw("{}.svg".format(name))
-        #system("display {}.svg".format(name))
     else:
         print("Give me a better tree")
 

@@ -320,23 +320,20 @@ def decodeTree2(dataIN):
     Decodes a huffman tree from its binary representation
     """
     i =[0]
-    T= binTree.BinTree('.',None,None)
-    return _decodeTree(dataIN,i,T)
+    return _decodeTree(dataIN,i)
 
-def _decodeTree(s,i,T):
-    if(i[0]>=len(s)):
-        return T
+def _decodeTree(s,i):
     c = s[i[0]]
     i[0]+=1
-    if c==1:
+    if c=="1":
         bc = ""
-        for i in range (i[0],i[0]+8):
-            bc += s[i]
-            bc = _bintochar(bc)
-            i[0]+=8
+        for j in range (i[0],i[0]+8):
+            bc += s[j]
+        bc = _bintochar(bc)
+        i[0]+=8
         return binTree.BinTree(bc,None,None)
     else:
-        T= binTree.BinTree(c[0],_decodeTree(s,i,T),_decodeTree(s,i,T))
+        T= binTree.BinTree(i[0],_decodeTree(s,i),_decodeTree(s,i))
         return T
 
 def _bintochar(b):
@@ -351,57 +348,57 @@ def _bintochar(b):
 
 toSVG(decodeTree2("0010111010010110001001011000010101100011101100101"), "tree")
 
-#
-# print("#####################")
-# print("")
-# string = input(" Please enter a string: ")
-# print("this is your string: " + bcolors.WARNING + string)
-#
-# print(bcolors.RESET)
-# freq = buildFrequencyList(string)
-# print("frequency list:")
-# print(freq)
-# print("")
-#
-# tree = buildHuffmanTree(freq)
+
+print("#####################")
+print("")
+string = input(" Please enter a string: ")
+print("this is your string: " + bcolors.WARNING + string)
+
+print(bcolors.RESET)
+freq = buildFrequencyList(string)
+print("frequency list:")
+print(freq)
+print("")
+
+tree = buildHuffmanTree(freq)
 # toSVG(tree, "tree")
-#
-# print()
-# print("This is the codeDict")
-# code = codeDict(tree)
-# print(code)
-#
-# print()
-# print("EncodeData returns:")
-# encodedData = encodeData(string, tree)
-# print(encodedData)
-#
-# print()
-# print("encodeTree returns:")
-# print(encodeTree(tree))
-#
-# print()
-# print("Compress returns:" + bcolors.WARNING)
-# compressed = compress(string)
-# print(compressed)
-#
-# print(bcolors.RESET)
-# print("decodeData returns:")
-# decoded = decodeData(encodedData, tree)
-# print(decoded)
-#
-# print()
-# print("fromBinary returns" + bcolors.WARNING)
-# fromb = fromBinary(compressed[0][0], compressed[0][1])
-# print(fromb)
-#
-# print(bcolors.RESET)
-# print("decodeTree returns" + bcolors.WARNING)
-# dect = decodeTree('0010111010010110001001011000010101100011101100101')
-# print(dect)
+
+print()
+print("This is the codeDict")
+code = codeDict(tree)
+print(code)
+
+print()
+print("EncodeData returns:")
+encodedData = encodeData(string, tree)
+print(encodedData)
+
+print()
+print("encodeTree returns:")
+print(encodeTree(tree))
+
+print()
+print("Compress returns:" + bcolors.WARNING)
+compressed = compress(string)
+print(compressed)
+
+print(bcolors.RESET)
+print("decodeData returns:")
+decoded = decodeData(encodedData, tree)
+print(decoded)
+
+print()
+print("fromBinary returns" + bcolors.WARNING)
+fromb = fromBinary(compressed[0][0], compressed[0][1])
+print(fromb)
+
+print(bcolors.RESET)
+print("decodeTree returns" + bcolors.WARNING)
+dect = decodeTree('0010111010010110001001011000010101100011101100101')
+print(dect)
 # toSVG(dect, "decoded")
-#
-# print(bcolors.RESET)
-# print("decompress : ")
-# final = decompress('Z@¤Æ\x07', 5, '.\x96%\x85c²\x01', 7)
-# print(final)
+
+print(bcolors.RESET)
+print("decompress : ")
+final = decompress('Z@¤Æ\x07', 5, '.\x96%\x85c²\x01', 7)
+print(final)

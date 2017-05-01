@@ -214,7 +214,8 @@ def compress(dataIn):
 
 def decodeData(dataIN, huffmanTree): # Working
     """
-    Decode a string using the corresponding huffman tree into something more readable.
+    Decode a string using the corresponding huffman tree into something more
+    readable.
     """
     code = codeDict(huffmanTree)
     part = ""
@@ -279,28 +280,29 @@ def beautify(tree):
 
 def fromBinary (dataIN, align): # Working
     """
-    Retrieve a string containing binary code from its real binary value (inverse of :func:`toBinary`).
+    Retrieve a string containing binary code from its real binary value
+    (inverse of :func:`toBinary`).
     """
-    bin = ""
+    _bin = ""
     for i in range (len(dataIN)-1):
-        bin += _CharToBin(dataIN[i])
+        _bin += _CharToBin(dataIN[i])
     lastOct =  _CharToBin(dataIN[len(dataIN)-1])
     for i in range (align , len(lastOct)):
-        bin += lastOct[i]
-    return bin
+        _bin += lastOct[i]
+    return _bin
 
 def _CharToBin(c):
     """
     Converts a character to its binary form
     """
     Cint = ord(c)
-    bin = ""
+    _bin = ""
     while Cint != 0:
-        bin =  str(Cint%2) + bin
-        Cint = Cint//2
-    while len(bin) < 8:
-        bin = '0' + bin
-    return bin
+        _bin = str(Cint % 2) + _bin
+        Cint = Cint // 2
+    while len(_bin) < 8:
+        _bin = '0' + _bin
+    return _bin
 
 ################################################################################
 
@@ -311,8 +313,59 @@ def decompress(data, dataAlign, tree, treeAlign): # Working
     tree = fromBinary(tree, treeAlign)
     code = fromBinary(data, dataAlign)
     newtree = decodeTree(tree)
-    # toSVG(newtree)
     final = decodeData(code, newtree)
     return final
 
 ################################################################################
+
+
+print("#####################")
+print("")
+string = input(" Please enter a string: ")
+print("this is your string: " + string)
+
+print()
+freq = buildFrequencyList(string)
+print("frequency list:")
+print(freq)
+print("")
+
+tree = buildHuffmanTree(freq)
+
+print()
+print("This is the codeDict")
+code = codeDict(tree)
+print(code)
+
+print()
+print("EncodeData returns:")
+encodedData = encodeData(string, tree)
+print(encodedData)
+
+print()
+print("encodeTree returns:")
+print(encodeTree(tree))
+
+print()
+compressed = compress(string)
+print(compressed)
+
+print("decodeData returns:")
+decoded = decodeData(encodedData, tree)
+print(decoded)
+
+print()
+print("fromBinary returns")
+fromb = fromBinary(compressed[0][0], compressed[0][1])
+print(fromb)
+
+print("decodeTree returns")
+dect = decodeTree('0010111010010110001001011000010101100011101100101')
+print(dect)
+# toSVG(dect, "decoded")
+
+print("decompress : ")
+a = compress(string)
+print(a)
+final = decompress(a[0][0], a[0][1], a[1][0], a[1][1])
+print(final)
