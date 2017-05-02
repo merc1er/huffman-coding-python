@@ -164,8 +164,8 @@ def letterToBin(letter):
     while i != 0:
         string = str(i % 2) + string
         i = i // 2
-    if len(string) == 7:
-        string = "0" + string
+    if len(string) < 8:
+        string = (8 - len(string)) * "0" + string
     return string
 
 ################################################################################
