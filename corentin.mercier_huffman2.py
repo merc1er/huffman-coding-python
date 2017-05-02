@@ -53,7 +53,6 @@ def buildHuffmanTree(inputList): # Working
         T = binTree.BinTree(i,None,None)
         l.append(T)
     tree = _buildHuffmanTree(l,0)
-    tree.key = ""
     return tree
 
 def quickSort(L):
@@ -307,7 +306,6 @@ def decompress(data, dataAlign, tree, treeAlign):
     tree = fromBinary(tree, treeAlign)
     code = fromBinary(data, dataAlign)
     newtree = decodeTree(tree)
-    # toSVG(newtree)
     final = decodeData(code, newtree)
     return final
 
@@ -315,38 +313,36 @@ def decompress(data, dataAlign, tree, treeAlign):
 ## TESTS
 
 
-def decodeTree2(dataIN):
-    """
-    Decodes a huffman tree from its binary representation
-    """
-    i =[0]
-    return _decodeTree(dataIN,i)
-
-def _decodeTree(s,i):
-    c = s[i[0]]
-    i[0]+=1
-    if c=="1":
-        bc = ""
-        for j in range (i[0],i[0]+8):
-            bc += s[j]
-        bc = _bintochar(bc)
-        i[0]+=8
-        return binTree.BinTree(bc,None,None)
-    else:
-        T= binTree.BinTree(i[0],_decodeTree(s,i),_decodeTree(s,i))
-        return T
-
-def _bintochar(b):
-    b=int(b)
-    c = 0
-    n=1
-    while b>0:
-        c += b%10 * n
-        b=b//10
-        n*=2
-    return chr(c)
-
-toSVG(decodeTree2("0010111010010110001001011000010101100011101100101"), "tree")
+# def decodeTree2(dataIN):
+#     """
+#     Decodes a huffman tree from its binary representation
+#     """
+#     i =[0]
+#     return _decodeTree(dataIN,i)
+#
+# def _decodeTree(s,i):
+#     c = s[i[0]]
+#     i[0]+=1
+#     if c=="1":
+#         bc = ""
+#         for j in range (i[0],i[0]+8):
+#             bc += s[j]
+#         bc = _bintochar(bc)
+#         i[0]+=8
+#         return binTree.BinTree(bc,None,None)
+#     else:
+#         T= binTree.BinTree(i[0],_decodeTree(s,i),_decodeTree(s,i))
+#         return T
+#
+# def _bintochar(b):
+#     b=int(b)
+#     c = 0
+#     n=1
+#     while b>0:
+#         c += b%10 * n
+#         b=b//10
+#         n*=2
+#     return chr(c)
 
 
 print("#####################")
@@ -361,7 +357,7 @@ print(freq)
 print("")
 
 tree = buildHuffmanTree(freq)
-# toSVG(tree, "tree")
+toSVG(tree, "tree")
 
 print()
 print("This is the codeDict")
@@ -400,5 +396,6 @@ print(dect)
 
 print(bcolors.RESET)
 print("decompress : ")
-final = decompress('Z@¤Æ\x07', 5, '.\x96%\x85c²\x01', 7)
+a = compress(string)
+final = decompress(a[0][0], a[0][1], a[1][0], a[1][1])
 print(final)
